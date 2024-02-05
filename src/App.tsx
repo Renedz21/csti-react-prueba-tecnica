@@ -15,9 +15,9 @@ const App = () => {
     <main className="h-full w-full">
       <Navbar />
       <div className="container mx-auto py-8">
-        <Title title="Dashboard" />
+        <Title title="Tabla de usuarios" />
 
-        <DataTable data={data} columns={columns} />
+        <DataTable data={data} columns={columns} searchKey="email" />
       </div>
     </main>
   );

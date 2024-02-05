@@ -28,17 +28,8 @@ export const columns: ColumnDef<IUserProps>[] = [
       );
     },
     cell: ({ row }) => {
-      const { first, last, title } = row.original.name;
-
-      if (!first || !last || !title) {
-        return "N/A";
-      }
-
-      if (title === "Miss" || title === "Ms") {
-        return `${title}. ${first} ${last}`;
-      } else {
-        return `${first} ${last}`;
-      }
+      const { first, last } = row.original.name;
+      return `${first} ${last}`;
     },
   },
   {
@@ -74,8 +65,8 @@ export const columns: ColumnDef<IUserProps>[] = [
     accessorKey: "nationality",
     header: "Nacionalidad",
     cell: ({ row }) => {
-      const { country } = row.original.location;
-      return country;
+      const nat = row.original.nat;
+      return nat;
     },
   },
 ];

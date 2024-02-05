@@ -8,6 +8,6 @@ export const instance = axios.create({
         'Content-Type': 'application/json',
     },
     params: {
-        results: 50,
+        results: 15,
     }
 });
