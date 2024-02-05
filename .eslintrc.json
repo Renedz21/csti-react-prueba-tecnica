@@ -25,6 +25,8 @@
     ],
     "rules": {
         // "react/prop-types": "off",
+        //any
+        "@typescript-eslint/no-explicit-any": "off",
         "react/react-in-jsx-scope": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "error"
