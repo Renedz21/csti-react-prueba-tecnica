@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Each from "@/components/common/each";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -90,14 +91,17 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+                  <Each
+                    of={row.getVisibleCells()}
+                    render={(cell: any) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    )}
+                  />
                 </TableRow>
               ))
             ) : (
@@ -114,11 +118,9 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-between">
-        <div>
-          <span>
-            Showing {table.getRowModel().rows.length} of {data.length} results
-          </span>
-        </div>
+        <span className="text-sm md:text-base">
+          Showing {table.getRowModel().rows.length} of {data.length} results
+        </span>
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
             variant="outline"

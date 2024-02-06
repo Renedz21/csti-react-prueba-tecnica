@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,6 +52,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontSize: {
+        "2xl": "clamp(1.95rem,1.56vw + 1.56rem,2.81rem)",
+        "3xl": "clamp(2.44rem,2.38vw + 1.85rem,3.75rem)",
       },
       borderRadius: {
         lg: "var(--radius)",

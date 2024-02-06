@@ -10,7 +10,11 @@ export const columns: ColumnDef<IUserProps>[] = [
     cell: ({ row }) => {
       const { thumbnail } = row.original.picture;
       return (
-        <img src={thumbnail} alt="user" className="h-10 w-10 rounded-full" />
+        <img
+          src={thumbnail}
+          alt="user"
+          className="h-auto w-10 rounded-full object-cover"
+        />
       );
     },
   },

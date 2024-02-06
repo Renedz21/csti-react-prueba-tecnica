@@ -1,5 +1,5 @@
 import { QueryEnum } from "@/types/query-enums";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, } from "@tanstack/react-query";
 import { getUsers } from "./queries";
 
 
