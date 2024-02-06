@@ -85,3 +85,9 @@ export interface Picture {
     medium: string;
     thumbnail: string;
 }
+
+
+export interface SearchParams {
+    gender: string;
+    nat: string;
+}

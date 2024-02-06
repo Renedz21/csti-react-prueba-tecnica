@@ -1,8 +1,10 @@
 import React from "react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -14,9 +16,15 @@ type SheetFilterProps = {
   children: React.ReactNode;
   title: string;
   description: string;
+  onClean?: () => void;
 };
 
-const SheetFilter = ({ children, description, title }: SheetFilterProps) => {
+const SheetFilter = ({
+  children,
+  description,
+  title,
+  onClean,
+}: SheetFilterProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -31,6 +39,18 @@ const SheetFilter = ({ children, description, title }: SheetFilterProps) => {
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         {children}
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button
+              className="w-full"
+              variant="outline"
+              onClick={onClean}
+              type="button"
+            >
+              Limpiar filtros
+            </Button>
+          </SheetClose>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

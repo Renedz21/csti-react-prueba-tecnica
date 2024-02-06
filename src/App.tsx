@@ -1,5 +1,7 @@
+import { useState } from "react";
+
 import { DataTable } from "./users/data-table";
-import { useGetUsers } from "./features/api";
+import { useGetUsers, useGetUsersParams } from "./features/api";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,6 +36,11 @@ const formSchema = z.object({
 });
 
 const App = () => {
+  const [filteredData, setFilteredData] = useState([]);
+  const { data, isLoading, isError, refetch } = useGetUsers();
+
+  const { mutateAsync: getting } = useGetUsersParams();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,11 +48,17 @@ const App = () => {
       nat: "",
     },
   });
-  const { data, isLoading, isError } = useGetUsers();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const result = await getting(values);
+    setFilteredData(result);
   }
+
+  const onClean = () => {
+    setFilteredData([]);
+    form.reset();
+    refetch();
+  };
 
   if (isError) {
     return (
@@ -62,13 +75,14 @@ const App = () => {
         <div className="flex items-center justify-between">
           <Title title="Tabla de usuarios" />
           <SheetFilter
-            title="Filtros"
+            title="Filtrar usuarios"
             description="Filtre los usuarios por genero y nacionalidad"
+            onClean={onClean}
           >
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
+                className="my-4 space-y-6"
               >
                 <FormField
                   control={form.control}
@@ -121,7 +135,7 @@ const App = () => {
                   )}
                 />
                 <Button className="w-full" type="submit">
-                  Submit
+                  Filtrar
                 </Button>
               </form>
             </Form>
@@ -132,7 +146,11 @@ const App = () => {
             <Spinner />
           </div>
         ) : (
-          <DataTable data={data} columns={columns} searchKey="email" />
+          <DataTable
+            data={filteredData.length > 0 ? filteredData : data}
+            columns={columns}
+            searchKey="email"
+          />
         )}
       </div>
     </main>
